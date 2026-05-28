@@ -72,6 +72,38 @@ skylines <- read_pact_skylines(results$skylines)
 tips     <- read_pact_tips(results$tips)
 ```
 
+### Core PACT example
+
+The bundled influenza H3N2 example (`pact_example_files()`) is a single structured coalescent tree with 7 geographic states and a time range of 2002–2008. Run the full analysis with:
+
+```r
+library(pactR)
+
+ex <- pact_example_files()
+
+results <- run_pact(
+  trees_file = ex$trees,
+  param_file = ex$param,
+  output_dir = tempdir()
+)
+
+stats    <- read_pact_stats(results$stats)
+skylines <- read_pact_skylines(results$skylines)
+tips     <- read_pact_tips(results$tips)
+```
+
+A self-contained script that runs the analysis and saves TSV files and figures is at:
+
+```
+inst/extdata/example/analyse_example.R
+```
+
+Run it with:
+
+```bash
+Rscript analyse_example.R
+```
+
 ### DTA posterior analysis
 
 ```r
@@ -120,17 +152,13 @@ See `MANUAL.md` for full parameter documentation and examples.
 
 ## Example data
 
-The bundled DTA example (`pact_example_dta()`) is a global HPAI H5N1 posterior containing 31 trees with 1921 tips and a `geo` discrete trait (3 states: Asia, Europe, North_America; 2018–2023). A ready-to-run analysis script is at:
+### Core PACT (`pact_example_files()`)
 
-```
-inst/extdata/example_dta_trees/analyse_global_HPAI.R
-```
+Influenza H3N2 structured coalescent tree — 1 posterior tree, 7 geographic states, 2002–2008. Produces TMRCA, coalescent rates, pairwise migration rates, skyline proportions, and time-to-trunk statistics.
 
-Run it with:
+### DTA posterior (`pact_example_dta()`)
 
-```bash
-Rscript analyse_global_HPAI.R
-```
+Global HPAI H5N1 BEAST DTA posterior — 31 trees, 1921 tips, `geo` trait (Asia, Europe, North_America), 2018–2023. Ready-to-run scripts in each folder write both TSV data files and PNG figures.
 
 ## Documentation
 
