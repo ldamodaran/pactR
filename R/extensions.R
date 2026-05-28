@@ -1138,6 +1138,6 @@ find_mrca <- function(file, tips, tree_index = -1L) {
 pact_example_dta <- function() {
   f <- system.file("extdata", "example_dta_trees",
                    "global_HPAI.trees", package = "pactR")
-  if (!nzchar(f)) stop("DTA example file not found. Is the pact package installed?")
+  if (!nzchar(f)) stop("DTA example file not found. Is the pactR package installed?")
   f
 }

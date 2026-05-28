@@ -1,4 +1,4 @@
-useDynLib(pact, .registration = TRUE)
+useDynLib(pactR, .registration = TRUE)
 importFrom(Rcpp, evalCpp)
 importFrom(ape, node.depth.edgelength, read.tree, read.nexus, dist.nodes, getMRCA, extract.clade)
 importFrom(stats, median, quantile, loess, predict, lm, coef, setNames)

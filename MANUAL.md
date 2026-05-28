@@ -1,4 +1,4 @@
-# pact — User Manual
+# pactR — User Manual
 
 **Version 0.9.4**
 
@@ -31,7 +31,7 @@
 
 ## 1. Introduction
 
-`pact` is an R package providing two complementary layers for analysing posterior samples of phylogenetic trees from Bayesian coalescent inference.
+`pactR` is an R package providing two complementary layers for analysing posterior samples of phylogenetic trees from Bayesian coalescent inference.
 
 **Layer 1 — Core PACT** wraps the original C++ [PACT](https://github.com/trvrb/pact) tool (Bedford 2009) via Rcpp. It reads posterior NEWICK tree files from BEAST, Migrate, IM, or LAMARC and computes structured coalescent statistics including TMRCA, coalescent rates, migration rates, nucleotide diversity, FST, Tajima's D, spatial diffusion coefficients, and lineage persistence. Time-windowed (skyline) versions of all statistics are supported.
 
@@ -52,7 +52,7 @@ install.packages("/path/to/pact_0.9.4.tar.gz",
 
 ```r
 # install.packages("remotes")
-remotes::install_github("your-username/pact")
+remotes::install_github("ldamodaran/pactR")
 ```
 
 ### System requirements
@@ -88,7 +88,7 @@ BiocManager::install(c("ggtree", "treeio"))
 ## 3. Package architecture
 
 ```
-pact/
+pactR/
 ├── src/                   C++ source (original PACT + Rcpp wrapper)
 │   ├── rcpp_pact.cpp      Rcpp entry point
 │   ├── coaltree.cpp/h     CoalescentTree class (all statistics)

@@ -607,7 +607,7 @@ read_pact_pairs <- function(file) {
 #' @export
 pact_example_files <- function() {
   dir <- system.file("extdata", "example", package = "pactR")
-  if (!nzchar(dir)) stop("Example files not found. Is the pact package installed?")
+  if (!nzchar(dir)) stop("Example files not found. Is the pactR package installed?")
   list(
     trees = file.path(dir, "in.trees"),
     param = file.path(dir, "in.param"),
@@ -632,7 +632,7 @@ pact_example_files <- function() {
 #' @export
 pact_parameter_reference <- function(print = TRUE) {
   f <- system.file("extdata", "parameters.txt", package = "pactR")
-  if (!nzchar(f)) stop("parameters.txt not found. Is the pact package installed?")
+  if (!nzchar(f)) stop("parameters.txt not found. Is the pactR package installed?")
   lines <- readLines(f)
   if (print) cat(lines, sep = "\n")
   invisible(lines)
@@ -647,7 +647,7 @@ pact_parameter_reference <- function(print = TRUE) {
 #' @export
 pact_manual <- function() {
   pdf <- system.file("doc", "pact_manual.pdf", package = "pactR")
-  if (!nzchar(pdf)) stop("Manual not found. Is the pact package installed?")
+  if (!nzchar(pdf)) stop("Manual not found. Is the pactR package installed?")
   if (.Platform$OS.type == "windows") {
     shell.exec(pdf)
   } else {

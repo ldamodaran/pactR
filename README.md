@@ -1,4 +1,4 @@
-# pact — Posterior Analysis of Coalescent Trees
+# pactR — Posterior Analysis of Coalescent Trees
 
 An R package wrapping the [PACT](https://github.com/trvrb/pact) C++ tool by Trevor Bedford, extended with a suite of R functions for analysing and visualising BEAST DTA (Discrete Trait Analysis) posterior tree files.
 
@@ -25,7 +25,7 @@ install.packages(
 
 ```r
 # install.packages("remotes")
-remotes::install_github("ldamodaran/pact")
+remotes::install_github("ldamodaran/pactR")
 ```
 
 ### Dependencies
