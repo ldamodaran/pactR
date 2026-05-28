@@ -1,0 +1,143 @@
+---
+title: "Introduction to pactR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to pactR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+## Overview
+
+**pactR** is an R interface to *PACT* — **P**osterior **A**nalysis of **C**oalescent **T**rees
+(Bedford 2009–2013). It reads posterior samples of labeled phylogenetic trees produced by
+programs such as BEAST, Migrate, IM, and LAMARC, and computes structured coalescent
+statistics including:
+
+- TMRCA and total branch length
+- Per-population coalescent rates
+- Directional migration rates
+- Nucleotide diversity, F~ST~, and Tajima's D
+- Spatial diffusion coefficients and drift rates
+- Skyline (time-windowed) versions of all statistics
+- Per-tip time-to-trunk and location histories
+
+## Installation
+
+Install the package from source:
+
+```r
+# If you have the source directory:
+install.packages("path/to/pactR", repos = NULL, type = "source")
+```
+
+## Quick start
+
+```{r example, eval=FALSE}
+library(pactR)
+
+# Get paths to bundled example files
+ex <- pact_example_files()
+
+# Run the full analysis
+outdir <- tempdir()
+results <- run_pact(
+  trees_file = ex$trees,
+  param_file = ex$param,
+  output_dir = outdir
+)
+
+# Read results into R data frames
+stats    <- read_pact_stats(results$stats)
+tips     <- read_pact_tips(results$tips)
+skylines <- read_pact_skylines(results$skylines)
+
+head(stats)
+head(tips)
+```
+
+## Input files
+
+### Tree file (`in.trees`)
+
+A plain-text file containing one NEWICK-format tree per line. Trees may include:
+
+- Tip labels with population codes (e.g., `1EU514626` where the first character is the
+  population label).
+- BEAST-style log-probability annotations: `[&lnP=-8734.21]`
+- Migrate-style log-likelihood lines: `ln(L) = -8734.21`
+- Migration event annotations: `[&M 5 0:0.000428597]`
+
+### Parameter file (`in.param`)
+
+A plain-text file with one directive per line. Comments begin with `#`. Blank lines are
+ignored. See `pact_parameter_reference()` for the complete list.
+
+**Example parameter file:**
+
+```
+push times back 2002 2007.997   # align tree times to calendar dates
+renew trunk 1                   # redefine trunk at present
+print rule tree                 # output best tree in Mathematica format
+
+summary tmrca                   # time to most recent common ancestor
+summary coal rates              # per-population coalescent rates
+summary mig rates               # directional migration rates
+
+skyline settings 2002 2008 0.01 # time-windowed stats: start end step
+skyline proportions             # population proportions over time
+
+tips time to trunk              # per-tip time-to-trunk statistic
+```
+
+## Output files
+
+| File          | Contents                                         | Read with               |
+|:--------------|:-------------------------------------------------|:------------------------|
+| `out.stats`   | Summary statistics (lower, mean, upper)          | `read_pact_stats()`     |
+| `out.tips`    | Per-tip statistics                               | `read_pact_tips()`      |
+| `out.skylines`| Time-windowed statistics                         | `read_pact_skylines()`  |
+| `out.rules`   | Best tree in Mathematica rule-list format        | —                       |
+| `out.pairs`   | Pairwise tip statistics                          | `read_pact_pairs()`     |
+
+## Plotting skylines
+
+```{r plot, eval=FALSE}
+library(ggplot2)
+
+skylines <- read_pact_skylines(results$skylines)
+
+# Plot population proportions over time
+pro <- subset(skylines, grepl("^pro_", statistic))
+
+ggplot(pro, aes(x = time, y = mean, colour = statistic)) +
+  geom_line() +
+  geom_ribbon(aes(ymin = lower, ymax = upper, fill = statistic), alpha = 0.2) +
+  labs(x = "Year", y = "Proportion", title = "Population proportions over time") +
+  theme_minimal()
+```
+
+## Parameter reference
+
+For a full listing of all available parameters:
+
+```{r params, eval=FALSE}
+pact_parameter_reference()
+```
+
+The PDF user manual (Bedford 2009–2013) can be opened with:
+
+```{r manual, eval=FALSE}
+pact_manual()
+```
+
+## Citation
+
+If you use PACT in your research, please cite:
+
+> Bedford T (2009–2013). *PACT: Posterior Analysis of Coalescent Trees*,
+> version 0.9.4. <https://github.com/trvrb/pact>

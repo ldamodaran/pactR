@@ -1,0 +1,32 @@
+# macOS metadata
+.DS_Store
+
+# R build artefacts
+*.tar.gz
+*.Rcheck/
+*.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Compiled C++ objects and shared library
+src/*.o
+src/*.so
+src/*.dll
+
+# Generated roxygen man pages (none yet — add when roxygen is run)
+# man/*.Rd
+
+# Generated outputs — regenerate by running the analysis scripts
+inst/extdata/example_dta_trees/fig_*.png
+inst/extdata/example_dta_trees/*.tsv
+
+# Generated outputs from analyse_example.R
+inst/extdata/example/fig_*.png
+inst/extdata/example/stats.tsv
+inst/extdata/example/skylines.tsv
+inst/extdata/example/tips.tsv
+inst/extdata/example/out.stats
+inst/extdata/example/out.skylines
+inst/extdata/example/out.tips
+inst/extdata/example/out.rules

@@ -1,0 +1,28 @@
+# PACT parameter file for global HPAI H5N1 DTA posterior trees
+# File: global_HPAI.trees
+# Tips: 1921 HPAI H5N1 sequences  |  Trees: 31  |  Burnin: 3 (~10%)
+# Trait: geo (3 states)            |  Time span: ~2021–2022
+
+burnin 3
+
+# ── Summary statistics (posterior mean + CI across trees) ─────────────────────
+
+summary tmrca
+summary diversity
+summary length
+summary proportions
+summary root proportions
+summary fst
+summary persistence
+
+# ── Skyline statistics (time-windowed, monthly bins 2021–2023) ────────────────
+
+skyline settings 2021 2023 0.083
+
+skyline tmrca
+skyline diversity
+skyline proportions
+
+# ── Tip-level statistics ──────────────────────────────────────────────────────
+
+tips time to trunk

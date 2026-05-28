@@ -1,0 +1,59 @@
+/* io.h
+Copyright 2009-2012 Trevor Bedford <t.bedford@ed.ac.uk>
+IO class definition
+This object reads a BEAST or Migrate treefile and performs calculations on the resulting vector of
+CoalescentTrees.
+*/
+
+/*
+This file is part of PACT.
+
+PACT is free software: you can redistribute it and/or modify it under the terms of the GNU General
+Public License as published by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+PACT is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with PACT.  If not, see
+<http://www.gnu.org/licenses/>.
+*/
+
+#ifndef IO_H
+#define IO_H
+
+#include <string>
+using std::string;
+
+#include <vector>
+using std::vector;
+
+#include "coaltree.h"
+#include "param.h"
+
+class IO {
+
+public:
+	IO(const std::string& treesFile,
+	   const std::string& paramFile,
+	   const std::string& outPrefix);
+
+	void treeManip();						// perform tree manipulation operations
+	void printTree();						// print highest posterior tree to .rules
+	void printStatistics();					// print coalescent statistics to .stats
+	void printTips();						// print tip statistics to .tips
+	void printSkylines();					// print skyline values to .skylines
+	void printPairs();						// pair pair statistics to .pairs
+
+private:
+	Parameters param;						// parameters object
+	string inputFile;						// complete name of input tree file
+	string outputPrefix;					// prefix for output files
+	vector<CoalescentTree> treelist;		// vector of coalescent trees
+	vector<double> problist;				// vector of assocatied probabilities
+	int getBestTree();						// return index of highest probability tree
+
+};
+
+#endif
