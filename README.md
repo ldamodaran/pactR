@@ -77,25 +77,25 @@ tips     <- read_pact_tips(results$tips)
 ```r
 library(ggplot2)
 
-f <- pact_example_dta()   # bundled RSV-A BEAST posterior
+f <- pact_example_dta()   # bundled global HPAI H5N1 BEAST posterior
 
 # Lineage persistence (dot-and-whisker)
-pers <- persistence_dta(f, trait = "region", burnin = 5L)
+pers <- persistence_dta(f, trait = "geo", burnin = 3L)
 plot_persistence(pers)
 
 # Proportions over time (ribbon or stacked area)
-prop <- dta_proportions(f, trait = "region", step = 0.25, burnin = 5L)
+prop <- dta_proportions(f, trait = "geo", step = 0.05, burnin = 3L)
 plot_dta_proportions(prop, type = "area")
 
 # Lineage through time (skyline)
-ltt <- lineage_through_time(f, step = 0.25, burnin = 5L)
+ltt <- lineage_through_time(f, step = 0.05, burnin = 3L)
 plot_ltt(ltt)
 ```
 
 If tip names do not contain parseable dates, supply the most recent sampling date:
 
 ```r
-pers <- persistence_dta(f, mrsd = "2023-06-15", burnin = 5L)
+pers <- persistence_dta(f, trait = "geo", mrsd = "2023-06-15", burnin = 3L)
 ```
 
 ## Key functions
@@ -120,16 +120,16 @@ See `MANUAL.md` for full parameter documentation and examples.
 
 ## Example data
 
-The bundled RSV-A example (`pact_example_dta()`) contains 45 posterior trees with 2103 tips and a `region` discrete trait (12 states, 1956–2023). A ready-to-run analysis script is at:
+The bundled DTA example (`pact_example_dta()`) is a global HPAI H5N1 posterior containing 31 trees with 1921 tips and a `geo` discrete trait (3 states: Asia, Europe, North_America; 2018–2023). A ready-to-run analysis script is at:
 
 ```
-inst/extdata/example_dta_trees/analyse_rsva.R
+inst/extdata/example_dta_trees/analyse_global_HPAI.R
 ```
 
 Run it with:
 
 ```bash
-Rscript analyse_rsva.R
+Rscript analyse_global_HPAI.R
 ```
 
 ## Documentation
