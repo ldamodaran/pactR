@@ -136,7 +136,7 @@ plot_ltt(ltt)
 pers2 <- persistence_dta(f, trait = "geo", mrsd = "2023-06-30", burnin = 3L)
 ```
 
-## Status (2026-05-27)
+## Status (2026-05-30)
 
 - Package builds and installs as `pactR`; all functions load correctly
 - All three DTA functions (`persistence_dta`, `dta_proportions`, `lineage_through_time`) audited against C++ source and verified correct
@@ -144,4 +144,6 @@ pers2 <- persistence_dta(f, trait = "geo", mrsd = "2023-06-30", burnin = 3L)
 - `parse_tip_dates()` auto-detects ISO `YYYY-MM-DD` dates (needed for HPAI tip names)
 - Tested on global HPAI H5N1 (31 trees, 1921 tips) and original H3N2 structured coalescent example
 - All example scripts run cleanly with no warnings
+- **Bug fix (2026-05-30):** `RcppExports.cpp` and `RcppExports.R` had stale `_pact_` symbol prefix and `R_init_pact` from before the `pact` → `pactR` rename. R looks for `R_init_pactR` on package load, so routines were never registered and `run_pact()` failed with "pact_run_cpp not found". Fixed by updating all symbols to `_pactR_` prefix.
+- **Note:** `persistence_dta` and `dta_proportions` are pure R and do not use `in.param`. That file is only needed by `run_pact()` (the C++ engine). DTA function parameters (burnin, time window, step) are passed as direct R arguments.
 - Pushed to `github.com/ldamodaran/pactR` via SSH
