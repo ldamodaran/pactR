@@ -12,7 +12,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 
 // pact_run_cpp
 void pact_run_cpp(std::string trees_file, std::string param_file, std::string output_prefix);
-RcppExport SEXP _pact_pact_run_cpp(SEXP trees_fileSEXP, SEXP param_fileSEXP, SEXP output_prefixSEXP) {
+RcppExport SEXP _pactR_pact_run_cpp(SEXP trees_fileSEXP, SEXP param_fileSEXP, SEXP output_prefixSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type trees_file(trees_fileSEXP);
@@ -24,11 +24,11 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_pact_pact_run_cpp", (DL_FUNC) &_pact_pact_run_cpp, 3},
+    {"_pactR_pact_run_cpp", (DL_FUNC) &_pactR_pact_run_cpp, 3},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_pact(DllInfo *dll) {
+RcppExport void R_init_pactR(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

@@ -16,6 +16,6 @@
 #'
 #' @export
 pact_run_cpp <- function(trees_file, param_file, output_prefix) {
-    invisible(.Call(`_pact_pact_run_cpp`, trees_file, param_file, output_prefix))
+    invisible(.Call(`_pactR_pact_run_cpp`, trees_file, param_file, output_prefix))
 }
 
